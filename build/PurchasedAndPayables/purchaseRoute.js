@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const express_graphql_1 = require("express-graphql");
 const graphql_1 = require("graphql");
-const multer_1 = __importDefault(require("multer"));
+const cloudinary_1 = __importDefault(require("../cloudinary"));
 const path_1 = __importDefault(require("path"));
 const authentication_1 = require("../EmployeeAndAccounts/authentication");
 const PurchaseClass_1 = require("./PurchaseClass");
@@ -28,27 +28,6 @@ const Schema = new graphql_1.GraphQLSchema({
 });
 const invoiceDIR = path_1.default.join(__dirname, '..', 'media', 'purchase', 'invoices');
 const receiptDIR = path_1.default.join(__dirname, '..', 'media', 'purchase', 'receipts');
-//initialize multer
-const invoiceStorage = multer_1.default.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, invoiceDIR);
-    },
-    filename: (req, file, callback) => {
-        const currDate = new Date().toISOString();
-        callback(null, req.params.purchaseId + "_" + file.originalname);
-    }
-});
-const uploadInvoice = (0, multer_1.default)({ storage: invoiceStorage });
-const receiptStorage = multer_1.default.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, receiptDIR);
-    },
-    filename: (req, file, callback) => {
-        const currDate = new Date().toISOString();
-        callback(null, req.params.purchaseId + "_" + file.originalname);
-    }
-});
-const uploadReceipt = (0, multer_1.default)({ storage: receiptStorage });
 purchaseRoute.post('/record', authentication_1.checkCredentials, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const purchaseInfo = req.body.purchaseInfo;
     const purchasedProducts = req.body.products;
@@ -134,7 +113,7 @@ purchaseRoute.post('/payment/update/:paymentId', authentication_1.checkCredentia
         return res.status(400).json({ error: result.message });
     return res.status(201).json({ data: result.data });
 }));
-purchaseRoute.post('/upload/invoice/:purchaseId', authentication_1.checkCredentials, uploadInvoice.single('file'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+purchaseRoute.post('/upload/invoice/:purchaseId', authentication_1.checkCredentials, cloudinary_1.default.single('file'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const purchaseId = parseInt(req.params.purchaseId);
     if (!purchaseId || isNaN(purchaseId))
         return res.status(400).json({ error: "Invalid purchase id." });
@@ -146,13 +125,13 @@ purchaseRoute.post('/upload/invoice/:purchaseId', authentication_1.checkCredenti
     }
     else {
         const upload = new PurchaseClass_1.PurchaseModify(purchaseId);
-        const result = yield upload.uploadInvoice(req.file.filename);
+        const result = yield upload.uploadInvoice(req.file.path);
         if (!result || !result.status)
             return res.status(400).json({ error: result.message });
         return res.status(201).json({ data: result.data });
     }
 }));
-purchaseRoute.post('/upload/receipt/:purchaseId', authentication_1.checkCredentials, uploadReceipt.single('file'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+purchaseRoute.post('/upload/receipt/:purchaseId', authentication_1.checkCredentials, cloudinary_1.default.single('file'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const purchaseId = parseInt(req.params.purchaseId);
     if (!purchaseId || isNaN(purchaseId))
         return res.status(400).json({ error: "Invalid purchase id." });
@@ -164,7 +143,7 @@ purchaseRoute.post('/upload/receipt/:purchaseId', authentication_1.checkCredenti
     }
     else {
         const upload = new PurchaseClass_1.PurchaseModify(purchaseId);
-        const result = yield upload.uploadReceipt(req.file.filename);
+        const result = yield upload.uploadReceipt(req.file.path);
         if (!result || !result.status)
             return res.status(400).json({ error: result.message });
         return res.status(201).json({ data: result.data });

@@ -1,7 +1,7 @@
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import { GraphQLSchema } from "graphql";
-import multer from "multer";
+import parser from "../cloudinary"
 import path from "path";
 import { checkCredentials } from "../EmployeeAndAccounts/authentication";
 import { addPayment, ProductArgs, PurchaseArgs, PurchaseModify, PurchaseOrders, updatePayment } from "./PurchaseClass";
@@ -16,33 +16,6 @@ const Schema = new GraphQLSchema({
 });
 const invoiceDIR = path.join(__dirname, '..', 'media', 'purchase', 'invoices');
 const receiptDIR = path.join(__dirname, '..', 'media', 'purchase', 'receipts');
-
-//initialize multer
-const invoiceStorage = multer.diskStorage({ 
-    destination: (req, file, callback) => {
-        callback(null, invoiceDIR);
-    },
-    filename: (req, file, callback) => {
-        const currDate = new Date().toISOString();
-        
-        callback(null, req.params.purchaseId + "_" + file.originalname);
-    }
-})
-
-const uploadInvoice = multer({ storage: invoiceStorage });
-
-const receiptStorage = multer.diskStorage({ 
-    destination: (req, file, callback) => {
-        callback(null, receiptDIR);
-    },
-    filename: (req, file, callback) => {
-        const currDate = new Date().toISOString();
-        
-        callback(null, req.params.purchaseId + "_" + file.originalname);
-    }
-})
-
-const uploadReceipt = multer({ storage: receiptStorage });
 
 purchaseRoute.post('/record', checkCredentials, async (req, res) => {
     const purchaseInfo: PurchaseArgs | null = req.body.purchaseInfo;
@@ -144,7 +117,7 @@ purchaseRoute.post('/payment/update/:paymentId', checkCredentials, async (req, r
     return res.status(201).json({ data: result.data });
 })
 
-purchaseRoute.post('/upload/invoice/:purchaseId', checkCredentials, uploadInvoice.single('file'), async (req, res) => {
+purchaseRoute.post('/upload/invoice/:purchaseId', checkCredentials, parser.single('file'), async (req, res) => {
     const purchaseId: number = parseInt(req.params.purchaseId);
 
     if (!purchaseId || isNaN(purchaseId)) return res.status(400).json({ error: "Invalid purchase id." });
@@ -155,14 +128,14 @@ purchaseRoute.post('/upload/invoice/:purchaseId', checkCredentials, uploadInvoic
         });
     } else {
         const upload = new PurchaseModify(purchaseId);
-        const result = await upload.uploadInvoice(req.file.filename);
+        const result = await upload.uploadInvoice(req.file.path);
         if (!result || !result.status) return res.status(400).json({ error: result.message });
 
         return res.status(201).json({ data: result.data });
     }
 });
 
-purchaseRoute.post('/upload/receipt/:purchaseId', checkCredentials, uploadReceipt.single('file'), async (req, res) => {
+purchaseRoute.post('/upload/receipt/:purchaseId', checkCredentials, parser.single('file'), async (req, res) => {
     const purchaseId: number = parseInt(req.params.purchaseId);
 
     if (!purchaseId || isNaN(purchaseId)) return res.status(400).json({ error: "Invalid purchase id." });
@@ -173,7 +146,7 @@ purchaseRoute.post('/upload/receipt/:purchaseId', checkCredentials, uploadReceip
         });
     } else {
         const upload = new PurchaseModify(purchaseId);
-        const result = await upload.uploadReceipt(req.file.filename);
+        const result = await upload.uploadReceipt(req.file.path);
         if (!result || !result.status) return res.status(400).json({ error: result.message });
 
         return res.status(201).json({ data: result.data });
