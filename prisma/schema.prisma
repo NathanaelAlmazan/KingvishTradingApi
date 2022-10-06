@@ -34,7 +34,7 @@ model Employee {
   zip_code      Int?       
   position      String    @db.VarChar(150)
   is_active     Boolean   @default(true)
-  profile_image String?   @db.VarChar(100)
+  profile_image String?   @db.VarChar(255)
   user_account  Account?
   sold_orders   Order[]
   transactions  Transaction[]
@@ -64,7 +64,7 @@ model Product {
   price         Decimal   @db.Decimal(12, 5)
   init_price    Decimal?   @db.Decimal(12, 5)
   category_id   Int   
-  image_name    String?   @db.VarChar(200)
+  image_name    String?   @db.VarChar(255)
   is_active     Boolean   @default(true)
   category      Category  @relation(fields: [category_id], references: [id])
   orders        OrderWithProduct[]
@@ -125,7 +125,7 @@ model OrderWithProduct {
 
 model Sales {
   id            Int       @id @default(autoincrement())
-  order_id      Int
+  order_id      Int       @unique
   order         Order     @relation(fields: [order_id], references: [id])
   date_paid     DateTime  @default(now())
 }

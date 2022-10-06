@@ -4,31 +4,17 @@ import { GraphQLSchema } from "graphql";
 import { PrismaClient } from '@prisma/client';
 import { checkCredentials } from '../EmployeeAndAccounts/authentication';
 import { RootMutation, RootQuery } from "./rootQueryMutaions";
-import multer from 'multer';
+import parser from "../cloudinary"
 import path from "path";
 
 let productRoute = express.Router();
 const mediaDIR = path.join(__dirname, '..', 'media', 'products');
 const dataPool = new PrismaClient();
 
-//initialize multer
-const multerStorage = multer.diskStorage({ 
-    destination: (req, file, callback) => {
-        callback(null, mediaDIR);
-    },
-    filename: (req, file, callback) => {
-        const currDate = new Date().toISOString();
-        
-        callback(null, req.params.productId + "_" + file.originalname);
-    }
-})
-
-const upload = multer({ storage: multerStorage });
-
 //use static files 
 productRoute.use('/images', express.static(mediaDIR));
 
-productRoute.post('/upload-product-image/:productId', checkCredentials, upload.single('image'), async (req, res) => {
+productRoute.post('/upload-product-image/:productId', checkCredentials, parser.single('image'), async (req, res) => {
     if (!req.file) {
 
         return res.status(400).json({
@@ -43,13 +29,13 @@ productRoute.post('/upload-product-image/:productId', checkCredentials, upload.s
                     id: parseInt(req.params.productId),
                 },
                 data: {
-                    image_name: req.file.filename,
+                    image_name: req.file.path,
                 },
             });
 
             return res.status(201).json({
                 success: true, 
-                fileName: req.file.filename
+                fileName: req.file.path
             });
             
         } catch (err) {

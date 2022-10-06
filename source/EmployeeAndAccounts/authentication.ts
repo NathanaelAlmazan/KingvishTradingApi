@@ -11,7 +11,7 @@ import { graphqlHTTP } from 'express-graphql';
 import { GraphQLSchema } from 'graphql';
 import { RootQuery, RootMutation } from './rootQueryMutation';
 import path from 'path';
-import multer from 'multer';
+import parser from "../cloudinary"
 
 let authRoute = express.Router();   //initialized express router
 dotenv.config();    //initialized environment variables
@@ -99,41 +99,27 @@ function VerifyToken(authHeader: string):TokenInterface | Boolean {
 
 //profile image storage
 const mediaDIR = path.join(__dirname, '..', 'media', 'employees');
-const multerStorage = multer.diskStorage({ 
-    destination: (req, file, callback) => {
-        callback(null, mediaDIR);
-    },
-    filename: (req, file, callback) => {
-        const currDate = new Date().toISOString();
-        
-        callback(null, req.params.employeeId + "_" + file.originalname);
-    }
-})
 
-const upload = multer({ storage: multerStorage });
-
-authRoute.post('/upload/profile/:employeeId', checkCredentials, upload.single('image'), async (req, res) => {
+authRoute.post('/upload/profile/:employeeId', checkCredentials, parser.single('image'), async (req, res) => {
     if (!req.file) {
-
         return res.status(400).json({
           success: false,
           message: "Failed to upload file."
         });
     } else {
-
         try { 
             await dataPool.employee.update({
                 where: {
                     id: parseInt(req.params.employeeId),
                 },
                 data: {
-                    profile_image: req.file.filename,
+                    profile_image: req.file.path,
                 },
             });
 
             return res.status(201).json({
                 success: true, 
-                fileName: req.file.filename
+                fileName: req.file.path
             });
             
         } catch (err) {

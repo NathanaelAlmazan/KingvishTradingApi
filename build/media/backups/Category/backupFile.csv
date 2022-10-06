@@ -1,0 +1,15 @@
+id,name,bar_code,stocks,price,category_id,is_active,image_name,init_price,description
+1,Paints and Supplies,,52,3995.75000,1,true,1_ladder1_071c48dd-87ef-4ad1-919_402c2.jpg,850.00000,Tools use in painting.
+1,Paints and Supplies,,20,1519.75000,1,true,2_LADDER1.jpg,900.50000,Tools use in painting.
+1,Paints and Supplies,,20,159.50000,1,true,5_4lgraya.jpg,780.75000,Tools use in painting.
+2,Electrical Supplies,,25,469.75000,2,true,11_omniextensionweu-105--1--jpg_9c81c.jpg,750.00000,Home illumination and electrical supplies at home.
+1,Paints and Supplies,,25,229.75000,1,true,6_nat4brushaa-jpg_111fd.jpg,450.00000,Tools use in painting.
+1,Paints and Supplies,987654321,20,120.50000,1,true,7_nat1.5brusha.jpg,,Tools use in painting.
+1,Paints and Supplies,,33,669.75000,1,true,9_1lxtraa.jpg,500.00000,Tools use in painting.
+1,Paints and Supplies,,15,209.75000,1,true,8_nat4brushaa-jpg_111fd.jpg,500.00000,Tools use in painting.
+1,Paints and Supplies,6a734t53456,19,558.75000,1,true,3_4lgraya.jpg,500.00000,Tools use in painting.
+2,Electrical Supplies,,30,15999.50000,2,true,10_ELECTRICAL1_b269d4b5-4dc9-4849-b497-cf02b1d4728d.jpg,300.00000,Home illumination and electrical supplies at home.
+1,Paints and Supplies,,30,614.00000,1,true,4_4lgraya.jpg,100.00000,Tools use in painting.
+3,Cleaning Materials,,60,87.45000,3,true,13_1102003043_univ_cnt_3_xl.jpg,,Materials use in cleaning floors and walls
+3,Cleaning Materials,,60,87.45000,3,true,,,Materials use in cleaning floors and walls
+3,Cleaning Materials,123456789,55,250.00000,3,true,14_1552415767249.jpeg,,Materials use in cleaning floors and walls

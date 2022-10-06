@@ -1,0 +1,17 @@
+id,company_name,first_name,last_name,contact_number,email,website,address,city,province,is_active
+4,Hauck Inc,Clara,Shanahan,09661651277,shanahan.122@gmail.com,,,Taguig City,Metro Manila,true
+2,Prosacco Group,Angela,Hayes,09661278093,angela.hayes@gmail.com,,,Taguig City,Metro Manila,true
+3,Okuneva - Carroll Group,Arturo,Okuneva,09661651277,arturo.okuneva@gmail.com,,,Taguig City,Metro Manila,true
+5,Ledner - Turner,Connie,Brakus,09661651277,conbrakus.122@gmail.com,,,Quezon City,Metro Manila,true
+7,Harber Group,Douglas,Langosh,09661651277,langosh56@yahoo.com,,,Quezon City,Metro Manila,true
+10,Bradtke,Doreen,Bradtke,09661651277,Bradtke.23@yahoo.com,,,Manila,Metro Manila,true
+11,Fatiz Trading Inc.,Edmundo,Vasquez,639202000631,seolchvodkavasquez@gmail.com,,BLK 4 LOT 8 PALAYAN VILLAGE,Quezon City,Metro Manila,true
+12,JerVC Co.,Gissele,Eclarino,639565697687,seolchvodkavasquez@gmail.com,,B-2 L-30 BOUGAINCILLA ST.,Valenzuela,Metro Manila,true
+13,Tarco Delivery Service,George,Washington,09778651234,gg.washngton@yahoo.com,,,Washington DC,New York,true
+15,Tacorx Ltd.,Joyce Ann May,Zapico,09175627797,joyceann.zapico@yahoo.com,,SFTD Blk. 12,Tanay,Rizal,true
+16,,Vincent Geogre,Aguinaldo,639171602448,vinec.aguinaldo@gmail.com,,B-15 L-8 SWITZERLAND,Makati,Metro Manila,true
+17,Avorex Inc.,Jason,Vaheraz,639202000631,seolchvodkavasquez@gmail.com,,23 Kaliraya St. ,Quezon City,Metro Manila,true
+8,Schaefer Inc,Gwendolyn,Wilderman,09661651277,wilderman67@yahoo.com,,,Quezon City,Metro Manila,true
+9,Kihn LLC,Harriet,Renner,09661651277,harry.renner@yahoo.com,,,Quezon City,Metro Manila,true
+1,Laxamana Inc.,Robert,Almazan,09178947633,robert.almazan12@gmail.com,,,Quezon City,Metro Manila,true
+6,Volkman - Schimmel,Dixie,Kovacek,09661651277,dixkovacek@gmail.com,,,Quezon City,Metro Manila,false

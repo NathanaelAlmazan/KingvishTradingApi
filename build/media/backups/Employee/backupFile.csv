@@ -1,0 +1,7 @@
+id,first_name,last_name,contact_number,email,address,city,province,zip_code,position,is_active,profile_image
+7,Michelle,Exlarano,09874568989,michelle.eclarano@gmail.com,22 Teral St.,Quezon City,Metro Manila,4574,Sales Agent,true,
+1,Nathanael,Almazan,09651268096,nathan.almazan1004@gmail.com,23 ROTC Hunters cl. 13 Brgy. Tatalon,Quezon City,Metro Manila,1113,Manager,true,
+4,Anwar,Jabawi,09212017083,anwar.jabawi@gmail.com,56 ROTC Hunters Brgy. Tatalon,Quezon City,Metro Manila,1412,Sales Agent,true,4_download.jpeg
+6,Almer,Omos,09212017083,omos.2333@gmail.com,56 ROTC Hunters Brgy. Tatalon,Quezon City,Metro Manila,1412,Sales Agent,true,
+5,Juaquin,Valdesco,09357845652,juaquin.valdes@yahoo.com,56 ROTC Hunters Brgy. Tatalon,Quezon City,Metro Manila,1412,Sales Agent,false,5_1102003043_univ_cnt_3_xl.jpg
+3,Lorraine,Almazan,09212017083,lara.almazan@gmail.com,56 ROTC Hunters Brgy. Tatalon,Quezon City,Metro Manila,1412,Accountant,true,
